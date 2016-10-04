@@ -32,6 +32,7 @@ RUN apk --no-cache add \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log \
     && chown -R www-data:www-data /var/lib/nginx \
+    && chown -R www-data:www-data /var/www \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer \
     && composer global require "hirak/prestissimo:^0.3"
 
