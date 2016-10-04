@@ -1,0 +1,17 @@
+language: bash
+
+services: docker
+
+env:
+  - PHP_VERSION=7.1
+  - PHP_VERSION=7.0
+
+before_script:
+  - env | sort
+  - image="${PHP_VERSION}"
+
+script:
+  - docker build -t andrewmclagan/aphex:"$image" .
+
+after_script:
+  - docker images

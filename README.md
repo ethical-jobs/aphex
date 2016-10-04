@@ -1,4 +1,4 @@
-# laravel-hhvm-docker
+# Alpine linux, PHP, Nginx
 
 A super fast, super slim, production hardened PHP-7 and Nginx docker image built on Alpine linux. Perfect for horizontally distributed PHP and `Laravel` applications run within a container cluster.
 
