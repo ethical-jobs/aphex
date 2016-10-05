@@ -8,7 +8,7 @@ env:
 before_script:
   - export REPO_TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_TAG ; fi`   
   - export REPO_IMAGE="${REPO}:${REPO_TAG}"  
-  - docker pull "$REPO"
+  - docker pull "$REPO" # For faster builds
 
 script:
   - echo "${REPO_IMAGE}"
@@ -17,5 +17,5 @@ script:
 
 after_success:
   - echo "${REPO_IMAGE}"  
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASS";
   - docker push "$REPO_IMAGE"

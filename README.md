@@ -7,5 +7,15 @@ A super fast, super slim, production hardened PHP-7 and Nginx docker image built
 ## Stack
 
 * **PHP-7** (Latest PHP runtime)
+	* mcrypt
+	* mysqli
+	* pdo_mysql
+	* opcache
+	* gd
 * **Nginx** (FastCGI web-server)
 * **Composer** (PHP package manager)
+* **supervisor** (process manager)
+* **Tooling**
+	* git
+	* wget
+	* bash
