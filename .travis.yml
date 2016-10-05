@@ -10,13 +10,11 @@ before_script:
   - export REPO_IMAGE="${REPO}:${REPO_TAG}"  
 
 script:
-  - echo "$image"
   - echo "${REPO_IMAGE}"
-  - docker build -t "$image" .
+  - docker build -t "$REPO_IMAGE" .
   - docker images
 
 after_success:
-  - echo "$image"
   - echo "${REPO_IMAGE}"  
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - docker push "$REPO"
+  - docker push "$REPO_IMAGE"
