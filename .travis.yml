@@ -17,6 +17,6 @@ script:
 
 after_success:
   - echo "${REPO_IMAGE}"  
-  - echo "$DOCKER_USERNAME" "$DOCKER_PASS"
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASS";
+  - echo "$DOCKER_USER" "$DOCKER_PASS"
+  - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS";
   - docker push "$REPO_IMAGE"
