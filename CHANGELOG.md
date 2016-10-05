@@ -1,4 +1,3 @@
+We follow the `php:alpine` docker repository. Docker tags and git tags will follow these versions, not all versions will be built.
 
-# 0.1.0
-
-Initial version.
+See these repositories for change logs.
