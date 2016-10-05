@@ -12,7 +12,7 @@ before_script:
 script:
   - echo "${REPO_IMAGE}"
   - docker build -t "$REPO_IMAGE" .
-  - docker images
+  - docker images 
 
 after_success:
   - echo "${REPO_IMAGE}"  
