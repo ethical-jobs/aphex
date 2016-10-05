@@ -2,11 +2,12 @@ language: bash
 
 services: docker
 
-before_script:
-  - image="${TRAVIS_TAG}"
-
 script:
-  - docker build -t andrewmclagan/aphex:"$image" -t andrewmclagan/aphex:latest .
+  - docker build -t andrewmclagan/aphex:"$TRAVIS_TAG" -t andrewmclagan/aphex:latest .
 
-after_script:
-  - docker images
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push andrewmclagan/aphex:"$TRAVIS_TAG";
+    docker push andrewmclagan/aphex:latest;
+    fi
