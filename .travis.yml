@@ -16,5 +16,7 @@ script:
   - docker images
 
 after_success:
+  - echo "$image"
+  - echo "${REPO_IMAGE}"  
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   - docker push "$REPO"
