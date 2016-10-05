@@ -3,11 +3,10 @@ language: bash
 services: docker
 
 script:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then docker build -t andrewmclagan/aphex:latest . fi  
-  - if [ -n "$TRAVIS_TAG" ]; then docker build -t andrewmclagan/aphex:"$TRAVIS_TAG" . fi      
-  - docker build -t andrewmclagan/aphex:"$TRAVIS_TAG" -t andrewmclagan/aphex:latest .
+  - export REPO_TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_TAG ; fi`   
+  - docker build -t andrewmclagan/aphex:"$REPO_TAG" .
 
 after_success:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then docker push andrewmclagan/aphex:latest; fi
-  - if [ -n "$TRAVIS_TAG" ]; then docker push andrewmclagan/aphex:"$TRAVIS_TAG"; fi          
+  - export REPO_TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_TAG ; fi`
+  - docker push andrewmclagan/aphex
