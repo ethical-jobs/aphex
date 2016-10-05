@@ -2,16 +2,8 @@ language: bash
 
 services: docker
 
-env:
-  - PHP_VERSION=7.1
-  - PHP_VERSION=7.0
-
-before_script:
-  - env | sort
-  - image="${PHP_VERSION}"
-
 script:
-  - docker build -t andrewmclagan/aphex:"$image" .
+  - docker build -t andrewmclagan/aphex:${TRAVIS_TAG} -t andrewmclagan/aphex:latest .
 
 after_script:
   - docker images

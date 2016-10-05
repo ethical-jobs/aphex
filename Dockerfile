@@ -1,4 +1,4 @@
-FROM php:7-alpine
+FROM php:7.0.11-alpine
 
 MAINTAINER "Andrew McLagan" <andrew@ethicaljobs.com.au>
 
