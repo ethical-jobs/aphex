@@ -2,8 +2,11 @@ language: bash
 
 services: docker
 
+before_script:
+  - image="${TRAVIS_TAG}"
+
 script:
-  - docker build -t andrewmclagan/aphex:${TRAVIS_TAG} -t andrewmclagan/aphex:latest .
+  - docker build -t andrewmclagan/aphex:"$image" -t andrewmclagan/aphex:latest .
 
 after_script:
   - docker images
