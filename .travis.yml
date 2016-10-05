@@ -8,6 +8,7 @@ env:
 before_script:
   - export REPO_TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_TAG ; fi`   
   - export REPO_IMAGE="${REPO}:${REPO_TAG}"  
+  - docker pull "$REPO"
 
 script:
   - echo "${REPO_IMAGE}"
