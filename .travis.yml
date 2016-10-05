@@ -5,11 +5,13 @@ services: docker
 env: 
   - REPO=andrewmclagan/aphex
 
-script:
+before_script:
   - export REPO_TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_TAG ; fi`   
-  - docker build -t "$REPO":"$REPO_TAG" .
+  - image="${REPO}:{REPO_TAG}"  
+
+script:
+  - docker build -t "$image" .
 
 after_success:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - export REPO_TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_TAG ; fi`
-  - docker push "$REPO"
+  - docker push "$image
