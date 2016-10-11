@@ -19,6 +19,7 @@ RUN apk --no-cache add \
         bash \
     && docker-php-ext-install \
         mcrypt \
+        mbstring \
         mysqli \
         pdo_mysql \
         opcache \
