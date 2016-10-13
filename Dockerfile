@@ -47,7 +47,7 @@ ADD ./config/supervisord.conf /etc/supervisord.conf
 
 ADD ./config/nginx.conf /etc/nginx/nginx.conf
 
-ADD ./config/php-fpm.ini /etc/php7/conf.d/php-fpm.ini
+ADD ./config/php-fpm.ini /usr/local/etc/php/php-fpm.ini
 
 #
 #--------------------------------------------------------------------------
