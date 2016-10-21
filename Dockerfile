@@ -62,6 +62,8 @@ WORKDIR /var/www
 
 ADD ./index.php /var/www/public/index.php
 
+ENV PATH="$PATH:/var/www/vendor/bin"
+
 #
 #--------------------------------------------------------------------------
 # Init
