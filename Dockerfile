@@ -23,7 +23,10 @@ RUN apk --no-cache add \
         mysqli \
         pdo_mysql \
         opcache \
+    && docker-php-ext-enable \
+        opcache \
     && docker-php-ext-configure gd \
+        --enable-gd-native-ttf \
         --with-gd \
         --with-freetype-dir=/usr/include/ \
         --with-png-dir=/usr/include/ \
