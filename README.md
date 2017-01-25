@@ -12,6 +12,7 @@ A super fast, super slim, production hardened PHP-7 and Nginx docker image built
 	* pdo_mysql
 	* opcache
 	* gd
+	* pcntl
 * **Nginx** (FastCGI web-server)
 * **Composer** (PHP package manager)
 * **supervisor** (process manager)
@@ -19,3 +20,7 @@ A super fast, super slim, production hardened PHP-7 and Nginx docker image built
 	* git
 	* wget
 	* bash
+
+## Building 
+
+To build this image from the Dockerfile use comething like `docker build .`

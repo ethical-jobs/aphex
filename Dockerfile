@@ -1,4 +1,4 @@
-FROM php:7.0.11-fpm-alpine
+FROM php:7.1.1-fpm-alpine
 
 MAINTAINER "Andrew McLagan" <andrew@ethicaljobs.com.au>
 
@@ -23,6 +23,7 @@ RUN apk --no-cache add \
         mysqli \
         pdo_mysql \
         opcache \
+        pcntl \
     && docker-php-ext-configure gd \
         --enable-gd-native-ttf \
         --with-gd \
