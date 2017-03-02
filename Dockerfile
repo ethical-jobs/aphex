@@ -1,4 +1,4 @@
-FROM php:7.1.1-fpm-alpine
+FROM php:7.1.2-fpm-alpine
 
 MAINTAINER "Andrew McLagan" <andrew@ethicaljobs.com.au>
 
@@ -22,6 +22,7 @@ RUN apk --no-cache add \
         mbstring \
         mysqli \
         pdo_mysql \
+        pdo_sqlite \
         opcache \
         pcntl \
     && docker-php-ext-configure gd \
