@@ -17,6 +17,7 @@ RUN apk --no-cache add \
         ca-certificates \
         supervisor \
         bash \
+        sqlite \
     && docker-php-ext-install \
         mcrypt \
         mbstring \
