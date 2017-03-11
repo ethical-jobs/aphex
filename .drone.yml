@@ -5,8 +5,6 @@ pipeline:
     repo: ethicaljobs/aphex
     username: ${DOCKER_USERNAME}
     password: ${DOCKER_PASSWORD}
-    build_args:
-      - VERSION_TAG=${DRONE_TAG}
     tags:
       - latest
       - ${DRONE_TAG}
