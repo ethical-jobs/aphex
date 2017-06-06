@@ -3,8 +3,7 @@ pipeline:
   publish:
     image: plugins/docker
     repo: ethicaljobs/aphex
-    username: ${DOCKER_USERNAME}
-    password: ${DOCKER_PASSWORD}
+    secrets: [ docker_username, docker_password ]    
     tags:
       - latest
       - ${DRONE_TAG}
