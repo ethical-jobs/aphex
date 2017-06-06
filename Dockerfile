@@ -17,17 +17,14 @@ RUN apk --no-cache add \
         ca-certificates \
         supervisor \
         bash \
-        sqlite-dev \
+        dcron \
     && docker-php-ext-install \
         mcrypt \
         mbstring \
         mysqli \
         pdo_mysql \
-        pdo_sqlite \
         opcache \
-        pcntl \
     && docker-php-ext-configure gd \
-        --enable-gd-native-ttf \
         --with-gd \
         --with-freetype-dir=/usr/include/ \
         --with-png-dir=/usr/include/ \
@@ -40,6 +37,10 @@ RUN apk --no-cache add \
     && chown -R www-data:www-data /var/www \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer \
     && composer global require "hirak/prestissimo:^0.3" 
+
+RUN mkdir -p /var/log/cron \
+    && touch /var/log/cron/cron.log \
+    && mkdir -m 0644 -p /etc/cron.d
 
 #
 #--------------------------------------------------------------------------
