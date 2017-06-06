@@ -1,6 +1,6 @@
 FROM php:7.1.2-fpm-alpine
 
-MAINTAINER "Andrew McLagan" <andrew@ethicaljobs.com.au>
+MAINTAINER "Andrew McLagan " <andrew@ethicaljobs.com.au>
 
 #
 #--------------------------------------------------------------------------
