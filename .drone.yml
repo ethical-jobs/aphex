@@ -8,7 +8,7 @@ pipeline:
       - latest
       - ${DRONE_TAG}
     when:
-      event: tag      
+      event: tag         
 
   notify-slack:
     image: plugins/slack
