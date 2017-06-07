@@ -17,7 +17,6 @@ RUN apk --no-cache add \
         ca-certificates \
         supervisor \
         bash \
-        dcron \
     && docker-php-ext-install \
         mcrypt \
         mbstring \
