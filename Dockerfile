@@ -18,7 +18,7 @@ RUN apk --no-cache add \
         supervisor \
         bash \
     && pecl install \
-        mcrypt \
+        mcrypt-1.0.1 \
     && docker-php-ext-enable \
         mcrypt \
     && docker-php-ext-install \
