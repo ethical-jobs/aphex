@@ -1,4 +1,4 @@
-FROM php:7.1.2-fpm-alpine
+FROM php:7.2-fpm-alpine3.6
 
 MAINTAINER "Andrew McLagan " <andrew@ethicaljobs.com.au>
 
@@ -35,7 +35,8 @@ RUN apk --no-cache add \
     && chown -R www-data:www-data /var/lib/nginx \
     && chown -R www-data:www-data /var/www \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer \
-    && composer global require "hirak/prestissimo:^0.3" 
+    && composer global require "hirak/prestissimo:^0.3" \
+    && composer global require "phpunit/phpunit:^5.6.1"
 
 RUN mkdir -p /var/log/cron \
     && touch /var/log/cron/cron.log \
