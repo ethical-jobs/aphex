@@ -17,6 +17,10 @@ RUN apk --no-cache add \
         ca-certificates \
         supervisor \
         bash \
+    && pecl install \
+        mcrypt \
+    && docker-php-ext-enable \
+        mcrypt \
     && docker-php-ext-install \
         mcrypt \
         mbstring \
