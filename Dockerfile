@@ -9,7 +9,6 @@ MAINTAINER "Andrew McLagan " <andrew@ethicaljobs.com.au>
 #
 
 RUN apk --no-cache add \
-        libmcrypt-dev \
         freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev \
         wget \
         git \
@@ -17,13 +16,7 @@ RUN apk --no-cache add \
         ca-certificates \
         supervisor \
         bash \
-    && pecl install \
-        mcrypt-1.0.1 \
-    && docker-php-ext-enable \
-        mcrypt \
     && docker-php-ext-install \
-        mcrypt \
-        mbstring \
         mysqli \
         pdo_mysql \
         opcache \
@@ -40,7 +33,7 @@ RUN apk --no-cache add \
     && chown -R www-data:www-data /var/www \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer \
     && composer global require "hirak/prestissimo:^0.3" \
-    && composer global require "phpunit/phpunit:^5.6.1"
+    && composer global require "phpunit/phpunit:^5.7.26"
 
 RUN mkdir -p /var/log/cron \
     && touch /var/log/cron/cron.log \
