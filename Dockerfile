@@ -39,6 +39,10 @@ RUN mkdir -p /var/log/cron \
     && touch /var/log/cron/cron.log \
     && mkdir -m 0644 -p /etc/cron.d
 
+RUN apk add --no-cache autoconf make g++ openssh openssl-dev \
+    && pecl install mongodb \
+    && docker-php-ext-enable mongodb
+
 #
 #--------------------------------------------------------------------------
 # Configuration
