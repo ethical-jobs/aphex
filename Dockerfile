@@ -33,8 +33,7 @@ RUN apk --no-cache add \
     && chown -R www-data:www-data /var/www \
     && chown -R www-data:www-data /var/tmp/nginx \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer \
-    && composer global require "hirak/prestissimo:^0.3" \
-    && composer global require "phpunit/phpunit:^5.7.26"
+    && composer global require "hirak/prestissimo:^0.3"
 
 RUN mkdir -p /var/log/cron \
     && touch /var/log/cron/cron.log \
