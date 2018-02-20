@@ -56,8 +56,10 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
         --with-file-aio \
         --with-http_v2_module \
     " \
-    && addgroup -S www-data \
-    && adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G www-data www-data \
+    # && addgroup -S www-data \
+    # && adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G www-data www-data \
+    && mkdir -p /var/cache/nginx \
+    && chown www-data:www-data /var/cache/nginx \
     && apk add --no-cache --virtual .build-deps \
         gcc \
         libc-dev \
@@ -180,7 +182,8 @@ RUN mkdir -p /var/log/cron \
 
 RUN mkdir -p /var/www /etc/supervisord
 
-ADD ./config/supervisord /etc/supervisord/
+ADD ./config/supervisord/web.conf /etc/supervisord
+ADD ./config/supervisord/queue.conf /etc/supervisord
 
 WORKDIR /var/www
 
