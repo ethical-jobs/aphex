@@ -10,6 +10,8 @@ MAINTAINER "Andrew McLagan " <andrew@ethicaljobs.com.au>
 
 ENV NGINX_VERSION 1.13.8
 
+ENV GPG_KEYS 1729F83938DA44E27BA0F4D3DBDB397470D12172
+
 RUN CONFIG="\
         --prefix=/etc/nginx \
         --sbin-path=/usr/sbin/nginx \
