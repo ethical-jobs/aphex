@@ -184,7 +184,7 @@ RUN mkdir -p /var/log/cron \
 
 RUN mkdir -p /var/www
 
-ADD ./config/* /etc/supervisord/
+ADD ./config/* /etc/
 
 WORKDIR /var/www
 
