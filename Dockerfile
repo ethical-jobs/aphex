@@ -7,6 +7,8 @@ MAINTAINER "Andrew McLagan " <andrew@ethicaljobs.com.au>
 # Install nginx
 #--------------------------------------------------------------------------
 #
+# We need to remove GPG key checks, use www-data user, chown cache directory etc...
+#
 
 ENV NGINX_VERSION 1.13.8
 
@@ -180,10 +182,9 @@ RUN mkdir -p /var/log/cron \
 #--------------------------------------------------------------------------
 #
 
-RUN mkdir -p /var/www /etc/supervisord
+RUN mkdir -p /var/www
 
-ADD ./config/supervisord/web.conf /etc/supervisord
-ADD ./config/supervisord/queue.conf /etc/supervisord
+ADD ./config/* /etc/supervisord
 
 WORKDIR /var/www
 
@@ -199,4 +200,4 @@ EXPOSE 80 443
 
 STOPSIGNAL SIGTERM
 
-CMD ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord/web.conf"]
+CMD ["/usr/bin/supervisord", "-c /etc/supervisord/web.conf"]
