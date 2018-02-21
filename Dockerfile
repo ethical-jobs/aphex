@@ -184,7 +184,7 @@ RUN mkdir -p /var/log/cron \
 
 RUN mkdir -p /var/www
 
-ADD ./config/* /etc/
+ADD ./config/supervisord/* /etc/supervisord/
 
 WORKDIR /var/www
 
@@ -200,4 +200,4 @@ EXPOSE 80 443
 
 STOPSIGNAL SIGTERM
 
-CMD ["/usr/bin/supervisord", "-c /etc/supervisord/web.conf"]
+CMD ["/usr/bin/supervisord", "-c /etc/supervisord/supervisord-web.conf"]
