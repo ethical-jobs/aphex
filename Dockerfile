@@ -7,8 +7,6 @@ MAINTAINER "Andrew McLagan " <andrew@ethicaljobs.com.au>
 # Install nginx
 #--------------------------------------------------------------------------
 #
-# We need to remove GPG key checks, use www-data user, chown cache directory etc...
-#
 
 ENV NGINX_VERSION 1.13.8
 
@@ -27,8 +25,8 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
         --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
         --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
         --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
-        --user=www-data \
-        --group=www-data \
+        --user=nginx \
+        --group=nginx \
         --with-http_ssl_module \
         --with-http_realip_module \
         --with-http_addition_module \
@@ -58,10 +56,8 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
         --with-file-aio \
         --with-http_v2_module \
     " \
-    # && addgroup -S www-data \
-    # && adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G www-data www-data \
-    && mkdir -p /var/cache/nginx \
-    && chown www-data:www-data /var/cache/nginx \
+    && addgroup -S nginx \
+    && adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx \
     && apk add --no-cache --virtual .build-deps \
         gcc \
         libc-dev \
@@ -170,7 +166,7 @@ RUN apk --no-cache add \
     && NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
     && docker-php-ext-install -j${NPROC} gd \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer \
-    && composer global require "hirak/prestissimo:^0.3"
+    && composer global require "hirak/prestissimo"
 
 RUN mkdir -p /var/log/cron \
     && touch /var/log/cron/cron.log \
@@ -182,13 +178,15 @@ RUN mkdir -p /var/log/cron \
 #--------------------------------------------------------------------------
 #
 
-RUN mkdir -p /var/www
-
 ADD ./config/supervisord/* /etc/supervisord/
 
-WORKDIR /var/www
+ENV TZ='Australia/Melbourne'
 
 ENV PATH="$PATH:/var/www/vendor/bin"
+
+RUN mkdir -p /var/www
+
+WORKDIR /var/www
 
 #
 #--------------------------------------------------------------------------
@@ -198,6 +196,4 @@ ENV PATH="$PATH:/var/www/vendor/bin"
 
 EXPOSE 80 443
 
-STOPSIGNAL SIGTERM
-
-CMD /usr/bin/supervisord -n -c /etc/supervisord/nginx-php.conf
+CMD /usr/bin/supervisord -n -c /etc/supervisord/web.conf
