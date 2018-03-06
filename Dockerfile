@@ -158,6 +158,7 @@ RUN apk --no-cache add \
         mysqli \
         pdo_mysql \
         opcache \
+        pcntl \
     && docker-php-ext-configure gd \
         --with-gd \
         --with-freetype-dir=/usr/include/ \
