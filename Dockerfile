@@ -173,7 +173,8 @@ RUN mkdir -p /var/log/cron \
     && mkdir -p /var/www \
     && mkdir -p /var/www/entrypoints \
     && touch /var/log/cron/cron.log \
-    && mkdir -m 0644 -p /etc/cron.d
+    && mkdir -m 0644 -p /etc/cron.d \
+    && chmod -R 0644 /etc/cron.d 
 
 #
 #--------------------------------------------------------------------------
@@ -181,9 +182,11 @@ RUN mkdir -p /var/log/cron \
 #--------------------------------------------------------------------------
 #
 
+ADD ./config/bin/schedule /etc/crontabs/root
+
 ADD ./config/supervisord/* /etc/supervisord/
 
-ADD ./config/entrypoints/* /etc/supervisord/
+ADD ./config/entrypoints/* /var/www/entrypoints
 
 ENV TZ='Australia/Melbourne'
 
@@ -198,5 +201,7 @@ WORKDIR /var/www
 #
 
 EXPOSE 80 443
+
+ENTRYPOINT ["/var/www/entrypoints/laravel.sh"]
 
 CMD /usr/bin/supervisord -n -c /etc/supervisord/web.conf
