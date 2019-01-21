@@ -186,7 +186,7 @@ ADD ./config/bin/schedule /etc/crontabs/root
 
 ADD ./config/supervisord/* /etc/supervisord/
 
-ADD ./config/entrypoints/* /var/www/entrypoints
+ADD ./config/entrypoints/* /var/www/entrypoints/
 
 ENV TZ='Australia/Melbourne'
 
