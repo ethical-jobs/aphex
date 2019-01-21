@@ -2,6 +2,6 @@
 
 set -e
 
-/var/www/entrypoints/laravel && \
+/var/entrypoints/laravel && \
     crond -L /var/log/cron/cron.log && \
     tail -F /var/log/cron/cron.log  
