@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+/var/www/entrypoints/laravel.sh && php /var/www/artisan horizon  
+    

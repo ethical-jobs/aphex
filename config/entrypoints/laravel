@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+cd /var/www
+
+echo "======================"
+echo "======================"
+
+printenv
+
+echo "======================"
+echo "======================"
+
+if [ "$EJ_ENV" = "production" ] ||  [ "$EJ_ENV" = "staging" ]; then
+
+    php artisan config:cache
+
+    echo 'opcache.validate_timestamps=0' >> /usr/local/etc/php/conf.d/php-fpm.ini
+
+fi
+
+exec "$@"

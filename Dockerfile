@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine3.7
+FROM php:7.3.1-fpm-alpine3.8
 
 MAINTAINER "Andrew McLagan " <andrew@ethicaljobs.com.au>
 
@@ -170,6 +170,8 @@ RUN apk --no-cache add \
     && composer global require "hirak/prestissimo"
 
 RUN mkdir -p /var/log/cron \
+    && mkdir -p /var/www \
+    && mkdir -p /var/www/entrypoints \
     && touch /var/log/cron/cron.log \
     && mkdir -m 0644 -p /etc/cron.d
 
@@ -181,11 +183,11 @@ RUN mkdir -p /var/log/cron \
 
 ADD ./config/supervisord/* /etc/supervisord/
 
+ADD ./config/entrypoints/* /etc/supervisord/
+
 ENV TZ='Australia/Melbourne'
 
 ENV PATH="$PATH:/var/www/vendor/bin"
-
-RUN mkdir -p /var/www
 
 WORKDIR /var/www
 

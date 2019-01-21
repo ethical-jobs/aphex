@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+/var/www/entrypoints/laravel.sh && \
+    crond -L /var/log/cron/cron.log && \
+    tail -F /var/log/cron/cron.log  
