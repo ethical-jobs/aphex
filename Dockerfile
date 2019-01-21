@@ -202,6 +202,6 @@ WORKDIR /var/www
 
 EXPOSE 80 443
 
-ENTRYPOINT ["/var/entrypoints/laravel.sh"]
+ENTRYPOINT ["/var/entrypoints/laravel"]
 
 CMD /usr/bin/supervisord -n -c /etc/supervisord/web.conf
