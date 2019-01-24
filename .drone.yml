@@ -1,18 +1,22 @@
-pipeline:
+kind: pipeline
+name: default
+steps:
 
-  publish:
+  - name: docker
     image: plugins/docker
-    repo: ethicaljobs/aphex
-    secrets: [ docker_username, docker_password ]    
-    tags:
-      - latest
-      - ${DRONE_TAG}
-    when:
-      event: tag         
+    settings:
+      repo: ethicaljobs/aphex
+      username:
+        from_secret: DOCKER_USERNAME
+      password:
+        from_secret: DOCKER_PASSWORD
+      build_args: [ 'VERSION_TAG=${DRONE_TAG=latest}' ]
+      tags:
+        - 'latest'
+        - '${DRONE_TAG=${DRONE_COMMIT=latest}}'
 
-  notify-slack:
+  - name: notify-slack
     image: plugins/slack
-    webhook: https://hooks.slack.com/services/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
-    channel: deployments
-    when:
-      status: changed
+    settings:
+      webhook: https://hooks.slack.com/services/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
+      channel: deployments

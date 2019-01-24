@@ -182,6 +182,8 @@ RUN mkdir -p /var/log/cron \
 #--------------------------------------------------------------------------
 #
 
+ADD ./config/php-fpm-aphex.ini /usr/local/etc/php/conf.d/php-fpm.ini
+
 ADD ./config/bin/schedule /etc/crontabs/root
 
 ADD ./config/supervisord/* /etc/supervisord/
