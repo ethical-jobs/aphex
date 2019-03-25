@@ -2,6 +2,9 @@
 
 set -e
 
+# touch first to allow stdout to be logged (https://stackoverflow.com/a/43807880/10382915)
+
 /var/entrypoints/laravel && \
+    touch /var/log/cron/cron.log && \
     crond -L /var/log/cron/cron.log && \
     tail -F /var/log/cron/cron.log  
