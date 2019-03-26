@@ -194,6 +194,10 @@ ENV PATH="$PATH:/var/www/vendor/bin"
 
 WORKDIR /var/www
 
+RUN touch /var/log/cron/cron.log
+
+ENV SCHEDULE_LOG_PATH /var/log/cron/cron.log
+
 #
 #--------------------------------------------------------------------------
 # Init
