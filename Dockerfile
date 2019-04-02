@@ -1,4 +1,4 @@
-FROM php:7.3.3-fpm-alpine3.8
+FROM php:7.3-fpm-alpine3.8
 
 LABEL maintainer="Dean Tedesco <dean@ethicaljobs.com.au>"
 
