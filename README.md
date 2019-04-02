@@ -23,4 +23,4 @@ A super fast, super slim, production hardened PHP-7 and Nginx docker image built
 
 ## Building 
 
-To build this image from the Dockerfile use comething like `docker build .`
+To build this image from the Dockerfile use something like `docker build .`

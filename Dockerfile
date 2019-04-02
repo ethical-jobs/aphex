@@ -1,6 +1,6 @@
-FROM php:7.3.1-fpm-alpine3.8
+FROM php:7.3.3-fpm-alpine3.8
 
-MAINTAINER "Andrew McLagan " <andrew@ethicaljobs.com.au>
+LABEL maintainer="Dean Tedesco <dean@ethicaljobs.com.au>"
 
 #
 #--------------------------------------------------------------------------
