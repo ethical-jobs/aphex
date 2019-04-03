@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine3.8
+FROM php:7.3-fpm-alpine3.8 AS stage0
 
 LABEL maintainer="Dean Tedesco <dean@ethicaljobs.com.au>"
 
@@ -208,4 +208,25 @@ EXPOSE 80 443
 
 ENTRYPOINT ["/var/entrypoints/laravel"]
 
+FROM scratch AS release
+COPY --from=stage0 / /
 CMD /usr/bin/supervisord -n -c /etc/supervisord/web.conf
+
+FROM php:7.3-fpm-alpine3.8 AS xdebug
+COPY --from=release / /
+
+# Add prerequisites for xdebug
+RUN apk add --no-cache $PHPIZE_DEPS
+
+# Install xdebug
+RUN pecl install xdebug-2.7.0
+
+# Configure xdebug for remote debugging with PhpStorm
+RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo "xdebug.remote_autostart=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo "xdebug.remote_host=docker.for.mac.localhost" >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini \
+ && echo "xdebug.remote_log=/var/www/storage/logs/xdebug.log" >> /usr/local/etc/php/conf.d/xdebug.ini
+
+FROM release
