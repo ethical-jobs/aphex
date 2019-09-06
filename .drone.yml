@@ -29,7 +29,7 @@ steps:
       build_args: [ 'VERSION_TAG=${DRONE_TAG=latest}-xdebug' ]
       tags:
         - 'xdebug'
-        - '${DRONE_TAG=${DRONE_COMMIT=xdebug}}'
+        - '${DRONE_TAG=${DRONE_COMMIT=latest}}-xdebug'
     when:
       event: tag
 
