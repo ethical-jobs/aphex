@@ -17,6 +17,22 @@ steps:
     when:
       event: tag         
 
+  - name: publish xdebug version
+    image: plugins/docker
+    settings:
+      repo: ethicaljobs/aphex
+      target: xdebug
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      build_args: [ 'VERSION_TAG=${DRONE_TAG=latest}-xdebug' ]
+      tags:
+        - 'xdebug'
+        - '${DRONE_TAG=${DRONE_COMMIT=xdebug}}'
+    when:
+      event: tag
+
   - name: notify-slack
     image: plugins/slack
     settings:

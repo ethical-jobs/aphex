@@ -189,8 +189,9 @@ FROM scratch AS release
 COPY --from=stage0 / /
 CMD /usr/bin/supervisord -n -c /etc/supervisord/web.conf
 
-FROM php:7.3-fpm-alpine3.10 AS xdebug
-COPY --from=release / /
+FROM stage0 AS xdebug
+COPY --from=stage0 / /
+CMD /usr/bin/supervisord -n -c /etc/supervisord/web.conf
 
 # Add prerequisites for xdebug
 RUN apk add --no-cache $PHPIZE_DEPS
