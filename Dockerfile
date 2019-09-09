@@ -159,6 +159,10 @@ RUN mkdir -p /var/log/cron \
 #--------------------------------------------------------------------------
 #
 
+ADD ./bin/* /root/aphex/bin/
+
+RUN chmod +x /root/aphex/bin/*
+
 ADD ./config/bin/schedule /etc/crontabs/root
 
 ADD ./config/supervisord/* /etc/supervisord/
