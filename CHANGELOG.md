@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [staged]
 
+## [v7.8.0]
+
+- eng-team-trello-123 Output php stdout to container
+
+## [v7.7.0 - v7.7.2]
+
+- Upgrade alpine php nginx
+
 ## [v7.6.0]
 
 - Added exif and mbstring PHP extensions
