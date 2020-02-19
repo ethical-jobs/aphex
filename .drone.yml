@@ -1,10 +1,12 @@
 kind: pipeline
 name: default
-steps:
 
+steps:
   - name: publish
     image: plugins/docker
-    settings: 
+    settings:
+      cache_from:
+        - "ethicaljobs/aphex:latest"
       repo: ethicaljobs/aphex
       username:
         from_secret: docker_username
@@ -15,10 +17,11 @@ steps:
         - 'latest'
         - '${DRONE_TAG=${DRONE_COMMIT=latest}}'
     when:
-      event: tag         
+      event: tag
 
   - name: notify-slack
     image: plugins/slack
+    failure: ignore
     settings:
       webhook:
         from_secret: slack_webhook

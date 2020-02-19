@@ -1,46 +1,62 @@
-# Alpine linux, PHP, Nginx
+# Alpine Linux, PHP, NGINX
 
-A super fast, super slim, production hardened PHP-7 and Nginx docker image built on Alpine linux. Perfect for horizontally distributed PHP and `Laravel` applications run within a container cluster.
+A super fast, super slim, production hardened PHP 7.3 and NGINX docker image built on Alpine linux. 
 
-**Note** Installs [hirak/prestissimo](https://github.com/hirak/prestissimo) composer parallel install plugin. If you have issues with composer installs remove this plugin.
+Perfect for horizontally distributed PHP and `Laravel` applications run within a container cluster.
 
 ## Stack
-
-* **PHP-7** (Latest PHP runtime)
-	* mcrypt
+* Alpine Linux
+* **PHP-7.3 & PHP-FPM**
 	* mysqli
-	* pdo_mysql
-	* opcache
-	* gd
-	* pcntl
-* **Nginx** (FastCGI web-server)
+    * pdo, pdo_mysql + pdo_sqlite
+    * opcache
+    * pcntl
+    * bcmath
+    * exif
+    * mbstring
+    * gd
+    * xdebug-2.9 (_Not loaded_)
+* **NGINX 1.16** (FastCGI web-server)
 * **Composer** (PHP package manager)
-* **supervisor** (process manager)
+    * `hirak/prestissimo` globally installed
+* **Supervisor Daemon** (Process manager)
 * **Tooling**
 	* git
 	* wget
 	* bash
 
-## Building 
+## Usage
 
-To build this image from the Dockerfile use something like `docker build .`
+This image should **not** be directly built, it a starting point for your own Dockerfile.
 
-## Logging PHP output
+Your Dockerfile should `ADD ` an NGINX configuration file at the very least.
 
-### Background: 
+[Lightweight example Dockerfile](https://github.com/ethical-jobs/aphex/blob/master/README.md) of running a brand new Laravel Application
 
-A docker container should have the command it runs ouput to stdout and stderr, so the container
+ `docker build -f example/Dockerfile .`
+ 
+ ### XDebug
+ XDebug is included with the image, but not enabled for the PHP runtime.
+ Lazily loading the xdebug module through command-line can be done via
+ 
+ ```
+php -d zend_extension=xdebug ...
+```
+ 
+## Logging Output
+A docker container should have the command it runs output to stdout and stderr, so the container
 runner (e.g. docker-compose / Kubernetes) can see this output and forward it to a logging system.
 
-php-fpm has workers that cam emit to php://stdout and php://stderr. These are captured by 
-php-fpm's master process and can be logged to a single error log file. However, there is no way
+### PHP
+PHP-FPM has workers that cam emit to php://stdout and php://stderr. These are captured by 
+PHP-FPM's master process and can be logged to a single error log file. However, there is no way
 to send these to two separate files.
 
 Additionally, a further file symlink would be needed to forward this output to /dev/stdout. But,
-php-fpm does not run as a user with the privilege to create this symlink or write to the
+PHP-FPM does not run as a user with the privilege to create this symlink or write to the
 file. Only root can write to /dev/stdout.
 
-### Solution:
+### Possible Solutions
 
 1. Have php workers write to a file in a known location, /var/www/storage/logs/stdout.log.
 1. A process running as root tails this file and forwards it to /dev/stdout
