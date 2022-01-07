@@ -1,4 +1,4 @@
-FROM ethicaljobs/aphex:latest
+FROM ethicaljobs/aphex-php7.3:latest
 
 ADD ./example/nginx.conf /etc/nginx/nginx.conf
 
