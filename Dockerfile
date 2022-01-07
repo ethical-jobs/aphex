@@ -1,4 +1,5 @@
-FROM php:7.3-fpm-alpine3.10 AS php
+ARG PHP_VERSION=7.3
+FROM php:$PHP_VERSION-fpm-alpine3.10 AS php
 
 LABEL maintainer="Ethical Jobs <development@ethicaljobs.com.au>"
 
@@ -6,16 +7,13 @@ FROM php AS php_modules
 
 RUN apk --no-cache add \
         freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev \
+        oniguruma-dev \
         wget \
         git \
         supervisor \
         bash \
     && NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
     && docker-php-ext-configure gd \
-        --with-gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-png-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ \
     && pecl install xdebug && pecl clear-cache \
     && docker-php-ext-install -j${NPROC} \
         mysqli \
