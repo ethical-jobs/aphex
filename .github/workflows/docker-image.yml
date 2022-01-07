@@ -5,7 +5,7 @@ on:
     branches:
       - '**'
     tags:
-      - 'v*.*.*'
+      - 'v*'
 
 env:
   IMAGE_NAME: ethicaljobs/aphex
@@ -30,8 +30,10 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=sha
+            type=semver,pattern=v{{version}}
+            type=semver,pattern=v{{major}}
+            type=semver,pattern=v{{major}}.{{minor}}
+            type=sha,prefix=,format=long
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
