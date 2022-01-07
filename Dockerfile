@@ -29,7 +29,6 @@ RUN apk --no-cache add \
 FROM php AS composer
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer \
-    && composer global require --prefer-dist --no-suggest --no-progress "hirak/prestissimo" \
     && composer global clear-cache
 
 FROM php_modules AS aphex
